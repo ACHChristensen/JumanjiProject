@@ -4,30 +4,24 @@ using UnityEngine;
 
 public class CoinHandler : MonoBehaviour
 {
-    private float rotation = 90f;
     private bool coinAchieved;
+    public GameObject coin;
+    private Coin coinScript;
     
     void Update()
     {
-        transform.Rotate(0, 0, rotation * Time.deltaTime);
+        coinScript = coin.GetComponent<Coin>();
+        coinAchieved = coinScript.coinAchieved;
+        //coin.transform.Rotate(0, 0, rotation * Time.deltaTime);
         if (coinAchieved) {
             StartCoroutine(CoinSpawnWait());
         }
-        coinAchieved = false;   
+          
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //TODO - Handling in wrong spawning coins/keys
+    
 
-        /*if (other.gameObject != null)
-        {
-            Destroy(gameObject);
-            return;
-        }*/
-    }
-
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         
         if (other.gameObject.tag == "Player")
@@ -35,13 +29,14 @@ public class CoinHandler : MonoBehaviour
             other.gameObject.GetComponent<PlayerAttachmentsHandler>().plusOneCoin();
             coinAchieved=true;
         }
-    }
+    }*/
 
     private IEnumerator CoinSpawnWait()
     {
-       gameObject.SetActive(false);
-       yield return new WaitForSecondsRealtime(5);
-       gameObject.SetActive(true);
+       coin.SetActive(false);
+       yield return new WaitForSeconds(3);
+       coin.SetActive(true);
+        coinScript.SetCoinAchieved(false);
     }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LionMovement : MonoBehaviour
 {
     private CharacterController controller;
-    private float moveSpeed = 0.015f; //TODO - Make speed faster over time 
+    private float moveSpeed = 0.04f; //TODO - Make speed faster over time 
     private bool inRange;
     public GameObject player;
     public float distance;
@@ -35,7 +35,7 @@ public class LionMovement : MonoBehaviour
             controller.Move(Vector3.forward * moveSpeed);
         }
         else if (!inRange) {
-            Vector3.MoveTowards(controller.transform.position, track.transform.position, moveSpeed);
+            gameObject.transform.position = Vector3.MoveTowards(controller.transform.position, track.transform.position, moveSpeed);
         }
         else
 
@@ -84,7 +84,7 @@ public class LionMovement : MonoBehaviour
 
     private IEnumerator DamageWaiter()
     {   
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSeconds(2);
         count = 0;
     }
 

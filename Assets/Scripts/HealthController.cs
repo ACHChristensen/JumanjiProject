@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class HealthController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Text gameStatus;
     private int hpTemp;
     private List<Image> heartsToCount;
+    public PlayerInput playerInput;
 
     void Start()
     {
@@ -22,43 +24,41 @@ public class HealthController : MonoBehaviour
         {
             heartsToCount.Add(heart);   
         }
-
     }
-    
+
+
     void Update()
     {
+        if(healthPoints < hpTemp)
+        {
+            UpdateHealth();
+            hpTemp=healthPoints;
+        } 
         if (healthPoints == 0)
         {
             gameStatus.text = "GAME OVER!";
         }
-        else if(healthPoints < hpTemp)
-        {
-            UpdateHealth();
-            hpTemp--;
-        }
-        
-        
-        Debug.Log(message: "Health: " + healthPoints);
+         
     }
 
     private void UpdateHealth()
     {
-        Debug.Log(message: "Kasper " + healthPoints);
-        Debug.Log(message: "bublu: " + (healthPoints % 2));
         if (healthPoints%2 == 0)
         {
-            for (int i = 0; i < hearts.Length; i++)
-            {   Debug.Log(message: hearts[i].name + " HERE!");
+            for (int i = 0; i < hearts.Length; i++) { 
+                if (hearts[i].enabled == false)
+                {
+                    continue;
+                }
                 if (hearts[i].color.Equals(Color.gray)) 
                 { 
                     hearts[i].enabled = false;
                     break;
                 }else if(!hearts[i].color.Equals( Color.gray))
                 {
-                    i++;
+                    continue;
                 }
-                Debug.Log(message: hearts[i].name + " Equally heart ");
-                
+               
             }
         }
         else
@@ -67,10 +67,9 @@ public class HealthController : MonoBehaviour
             {
                 if (!hearts[i].enabled)
                 {
-                    i++;
+                    continue ;
                 }
                 hearts[i].color = Color.gray;
-                Debug.Log(message: hearts[i].name + " black hearts ");
                 break;
             }
             

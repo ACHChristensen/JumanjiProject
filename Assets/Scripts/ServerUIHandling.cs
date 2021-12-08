@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ServerUIHandling : MonoBehaviour
 {
     public GameObject lion;
-    private Text distanceFromLion;
+    public Text distanceFromLion;
     private float lionDistance;
     [SerializeField] private GameObject player;
     private PlayerAttachmentsHandler playerItems;

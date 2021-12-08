@@ -9,17 +9,16 @@ public class PlayerMovement : MonoBehaviour
 {
     public Animator animation;
     public CharacterController controller;
-    private float speed = 12f;
+    private float speed = 500f;
     public PlayerInput playerInput;
     private Vector3 moveInput;
-    private Vector3 playerVelocity;
-    private float jump = 9.0f;
-    private float gravity = -9.3f;
+    private float jump = 10f;
+    private float gravity = -10f;
+    private float jumpHeight;
 
     void Start()
     {
         controller.SimpleMove(Vector3.forward * 0);
-
     }
 
     void FixedUpdate()
@@ -29,48 +28,38 @@ public class PlayerMovement : MonoBehaviour
         float verticalAxis = moveInput.z;
         float horizontalAxis = moveInput.x;
 
-        if ((moveInput.y !=0f || moveInput.x != 0f ) && playerInput.actions["JumpMovement"].ReadValue<float>() <= 0)
+        if ((inputMove.y !=0f || inputMove.x != 0f ) && playerInput.actions["JumpMovement"].ReadValue<float>() <= 0)
         {
             Moves();
             
         }
         this.animation.SetFloat("vertical", verticalAxis);
         this.animation.SetFloat("horizental", horizontalAxis);
-
-        if (playerInput.actions["JumpMovement"].ReadValue<float>() > 0 && controller.isGrounded)
+        if (controller.isGrounded)
         {
-            this.animation.SetBool("jump", true);
-            playerVelocity = moveInput;
-            playerVelocity.y += Mathf.Sqrt(jump * -1.0f * gravity);
-            controller.Move(playerVelocity * Time.deltaTime);
+            if (playerInput.actions["JumpMovement"].ReadValue<float>() > 0)
+            {
+                this.animation.SetTrigger("jump");
+                jumpHeight = jump;
+            }
+           
         }
-        else if (!controller.isGrounded){ 
-            playerVelocity.y += gravity * Time.deltaTime;
-        }
-        else
-        {
-            this.animation.SetBool("jump", false);
-        }
+         jumpHeight += gravity * Time.deltaTime;
         
-        controller.Move(playerVelocity * Time.deltaTime);
+       moveInput.y = jumpHeight;    
+        controller.Move(moveInput * Time.deltaTime);
 
     }
 
     private void Moves()
     {
-
-            Vector2 inputMove = playerInput.actions["Movement"].ReadValue<Vector2>();
-            moveInput = new Vector3(inputMove.x, 0f, inputMove.y);
-            
-            
-            
         if (moveInput.z < 0f)
             {
-                controller.Move(moveInput * Time.deltaTime * speed / 2);
+            moveInput += moveInput * Time.deltaTime * speed / 2;
             }
             else
             {
-                controller.Move(moveInput * Time.deltaTime * speed);
+            moveInput += moveInput * Time.deltaTime * speed;
             }
         
     }
