@@ -153,7 +153,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: mixamo.com
+      takeName: mixamo.com
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -198,9 +227,13 @@ ModelImporter:
   referencedClips:
   - 9420378af288e784ea4a264ea62a73e2
   - 47b96a58a99d18342bfe0b968d0d1a40
+  - 15f8b8882a2ed9647b554fa907ba5e37
   - baaa5d69bbf4476488ec7ab2b59757a0
+  - e60833ff243655448a7fd31fc827358f
+  - e732cb62034e7624797925e62fbdceef
   - 9e0e543e1e3cefc4ab395716c5dede84
   - 597b62565ec0d864998ce8a421bd68b8
+  - e3503f77db4f3924596dac7d0eddbd00
   - a8b488a483e92594a8e683195c92f35c
   - dc9b775aef63617419c82dd4157e5072
   importAnimation: 1
