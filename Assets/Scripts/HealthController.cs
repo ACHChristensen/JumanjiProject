@@ -38,7 +38,6 @@ public class HealthController : MonoBehaviour
         {
             gameStatus.text = "GAME OVER!";
         }
-         
     }
 
     private void UpdateHealth()

@@ -4,44 +4,50 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public bool coinAchieved;
+    private bool coinAchieved;
     private float rotation = 90f;
+    public CoinHandler coinHandler;
     void Start()
     {
+        coinHandler = GameObject.Find("CoinHandler").GetComponent<CoinHandler>();
         coinAchieved = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Rotate(0, 0, rotation * Time.deltaTime);
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        //TODO - Handling in wrong spawning coins/keys
-
-        /*if (other.gameObject != null)
-        {
-            Destroy(gameObject);
-            return;
-        }*/
+        
+        
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag.Equals("Player") /*&& !coinAchieved*/)
         {
             other.gameObject.GetComponent<PlayerAttachmentsHandler>().plusOneCoin();
-            coinAchieved = true;
+            StartCoroutine(coinHandler.CoinSpawnWait(this.gameObject));
+            //coinAchieved = true;
         }
+        /*if (other.gameObject.layer.Equals("Terrain") || other.gameObject.tag.Equals("Wooden"))
+        {
+            Destroy(gameObject);
+        }*/
        
     }
 
     public void SetCoinAchieved(bool achieved)
     {
         this.coinAchieved = achieved;
+    }
+
+    public bool GetCoinAchieved()
+    {
+       return this.coinAchieved;
     }
 }

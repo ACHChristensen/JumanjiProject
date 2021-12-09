@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea8a941bb27b3844bc0255c0f28fc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 6626238166441466384, guid: 8cda95b16e30eb04080a2bb16a3cdde6, type: 3}
   distance: 0
-  damage: 0
+  health: {fileID: 0}
 --- !u!143 &804362622207054193
 CharacterController:
   m_ObjectHideFlags: 0

@@ -1,48 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LionMovement : MonoBehaviour
 {
     private CharacterController controller;
-    private float moveSpeed = 0.04f; //TODO - Make speed faster over time 
+    private float moveSpeed = 0.01f; //TODO - Make speed faster over time 
     private bool inRange;
-    public GameObject player;
     public float distance;
     public GameObject health;
     private HealthController healthController;
     private int count;
     private GameObject track;
-    private bool onTrack;
+    private GameObject player;
+    private NavMeshAgent navM;
 
     void Start()
     {
-        transform.position = new Vector3(-20, 0, -150);
+        player = GameObject.FindGameObjectWithTag("Player");
+        gameObject.transform.position = new Vector3 (-40, 0, -1);
         controller = GetComponent<CharacterController>();
         healthController = health.GetComponent<HealthController>();
         inRange = false; 
-        onTrack = false;
         count = 0;
+        navM = GetComponent<NavMeshAgent>(); 
     }
 
-    void Update()
+
+    void FixedUpdate()
     {   
         Vector3 playerPosition = player.transform.position;
-        this.distance = Vector3.Distance(gameObject.transform.position, playerPosition);
-
-        if (!inRange && !onTrack)
-        {
-            controller.Move(Vector3.forward * moveSpeed);
-        }
-        else if (!inRange) {
-            gameObject.transform.position = Vector3.MoveTowards(controller.transform.position, track.transform.position, moveSpeed);
-        }
+        distance = Vector3.Distance(gameObject.transform.position, playerPosition);
+        //if (track.name==null) {
+        //navM.Move(Vector3.back*Time.deltaTime);
+        navM.SetDestination(playerPosition);
+        /*}
         else
-
-        { gameObject.transform.position = Vector3.MoveTowards(controller.transform.position, playerPosition, moveSpeed);
-
-        }
-        if (this.distance < 1)
+        { */
+           // gameObject.transform.position = Vector3.MoveTowards(controller.transform.position, track.transform.position, moveSpeed);
+        /*
+        }*/
+        if (distance < 1f)
         {
             count++;
             if(count == 1 && healthController.healthPoints>0) 
@@ -52,22 +51,22 @@ public class LionMovement : MonoBehaviour
             }
             
         }
+
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
-        if (other.gameObject.tag.Equals("Player"))
+        /*if (other.gameObject.tag.Equals("FieldTrack") && !inRange)
         {
-            onTrack = false;
-            inRange = true;
-        }
-        else if (other.gameObject.tag.Equals("FieldTrack"))
-        {
-            
             track = other.gameObject;
-            onTrack = true;
-        }
+        }*/
+       if (other.gameObject.tag.Equals("Player"))
+        { 
+            //track.GetComponent<Collider>().enabled=false;
+            inRange = true;
+
+        } 
     }
 
     private void OnTriggerExit(Collider other)
@@ -75,10 +74,8 @@ public class LionMovement : MonoBehaviour
         if (other.gameObject.tag.Equals("Player"))
         {
             inRange = false;
-        }
-        if (other.gameObject.tag.Equals("FieldTrack"))
-        {
-            onTrack = false;
+            //track.name = null;
+            //track.GetComponent<Collider>().enabled = true;
         }
     }
 

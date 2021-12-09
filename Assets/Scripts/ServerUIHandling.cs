@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class ServerUIHandling : MonoBehaviour
 {
-    public GameObject lion;
+    public GameObject lionPrefab;
+    private GameObject lion;
     public Text distanceFromLion;
     private float lionDistance;
+    private float startDistance;
     [SerializeField] private GameObject player;
     private PlayerAttachmentsHandler playerItems;
     private Text amountCoints;
@@ -18,16 +20,29 @@ public class ServerUIHandling : MonoBehaviour
     public GameObject barUI;
     public GameObject coinLogo;
     private Color whiteTransparent;
+    private bool lionSpawned;
+    [SerializeField] private GameObject startPoint;
     void Start()
     {
         distanceFromLion = GetComponentInChildren<Text>();
         playerItems = player.GetComponent<PlayerAttachmentsHandler>();
-        amountCoints = cointCounter.GetComponent<Text>();   
+        amountCoints = cointCounter.GetComponent<Text>(); 
+        lionSpawned = false;
+        distanceFromLion.text = "";
     }
 
     void FixedUpdate()
     {
-        LionDistance();
+        
+        startDistance = Vector3.Distance(startPoint.transform.position, player.transform.position);
+       
+        if (startDistance > 12 && !lionSpawned) {
+            lion = Instantiate<GameObject>(lionPrefab);
+            lionSpawned=true;
+        }
+        else if (lionSpawned) {
+            LionDistance();
+        }
         CointsManagement();
         coinLogo.transform.Rotate(Vector3.down * 50 * Time.deltaTime, Space.World); 
     }
@@ -39,7 +54,7 @@ public class ServerUIHandling : MonoBehaviour
 
     private void LionDistance()
     {
-        lionDistance = (lion.GetComponent<LionMovement>().distance)/3;
+        lionDistance = (lion.GetComponent<LionMovement>().distance);
         if((int)lionDistance == 0 )
         {
             distanceFromLion.text = "Lion: <" + (int)lionDistance + " m";
@@ -65,11 +80,11 @@ public class ServerUIHandling : MonoBehaviour
             barUI.GetComponent<RawImage>().color = whiteTransparent;
         }
 
-        ClientUpdate(distanceFromLion.color);
+        ClientUIUpdate(distanceFromLion.color);
         
     }
 
-    private void ClientUpdate(Color color)
+    private void ClientUIUpdate(Color color)
     {
         stick.GetComponent<Image>().color = color;
 

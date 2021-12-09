@@ -9,25 +9,30 @@ public class PlayerMovement : MonoBehaviour
 {
     public Animator animation;
     public CharacterController controller;
-    private float speed = 500f;
+    private float speed = 200f;
     public PlayerInput playerInput;
     private Vector3 moveInput;
-    private float jump = 10f;
-    private float gravity = -10f;
+    private float jump = 3f;
+    private float gravity = -3f;
     private float jumpHeight;
 
     void Start()
     {
         controller.SimpleMove(Vector3.forward * 0);
+        controller.SimpleMove(Vector3.right * 0);
+        controller.SimpleMove(Vector3.left * 0);
+        controller.SimpleMove(Vector3.back * 0);
     }
 
     void FixedUpdate()
     {
         Vector2 inputMove = playerInput.actions["Movement"].ReadValue<Vector2>();
-        moveInput = new Vector3(inputMove.x, 0f, inputMove.y);
-        float verticalAxis = moveInput.z;
-        float horizontalAxis = moveInput.x;
+        moveInput = new Vector3(inputMove.y, 0f, -1f*inputMove.x);
+        float verticalAxis = inputMove.y;
+        float horizontalAxis = inputMove.x;
 
+        
+        
         if ((inputMove.y !=0f || inputMove.x != 0f ) && playerInput.actions["JumpMovement"].ReadValue<float>() <= 0)
         {
             Moves();
@@ -39,13 +44,14 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerInput.actions["JumpMovement"].ReadValue<float>() > 0)
             {
+                
                 this.animation.SetTrigger("jump");
                 jumpHeight = jump;
             }
            
-        }
+        } 
          jumpHeight += gravity * Time.deltaTime;
-        
+       
        moveInput.y = jumpHeight;    
         controller.Move(moveInput * Time.deltaTime);
 
@@ -53,18 +59,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Moves()
     {
+        moveInput.y = gravity * Time.deltaTime;
+
         if (moveInput.z < 0f)
-            {
+        {
             moveInput += moveInput * Time.deltaTime * speed / 2;
-            }
-            else
-            {
+        }
+        else
+        {
             moveInput += moveInput * Time.deltaTime * speed;
-            }
+        }
         
     }
-
-
 
 
 }

@@ -5,31 +5,30 @@ using UnityEngine.UI;
 
 public class SoundHandler : MonoBehaviour
 {
-    [SerializeField] private AudioClip soundPlayer;
+    [SerializeField] private AudioClip music;
     [SerializeField] private bool muted;
-    [SerializeField] private AudioClip lionRawl;
-    [SerializeField] private ServerUIHandling LionUI;
-    private AudioSource sound;
+    [SerializeField] private AudioSource lionRawl;
+    [SerializeField] private GameObject UIHandler;
+    private Text LionUI;
 
-    // Start is called before the first frame update
     void Start()
     {
         muted = true;
-        
-        LionUI = new ServerUIHandling();
+        LionUI = UIHandler.GetComponent<ServerUIHandling>().distanceFromLion;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
-    {
-        if(LionUI.distanceFromLion.text.Equals(Color.red))
+    {   
+        if(LionUI.color.Equals(Color.red))
         {
-            sound = new AudioSource();
-            sound.clip = lionRawl;
-            if (!sound.isPlaying)
+            if (!lionRawl.isPlaying)
             {
-                sound.Play();
+                //lionRawl.mute = false;
+                //lionRawl.Play();
             }
+        } else
+        {
+            lionRawl.mute=true;
         }
     }
 
