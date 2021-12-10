@@ -19,12 +19,6 @@ public class Coin : MonoBehaviour
         
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
 

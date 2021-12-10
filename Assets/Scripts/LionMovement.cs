@@ -5,24 +5,21 @@ using UnityEngine.AI;
 
 public class LionMovement : MonoBehaviour
 {
-    private CharacterController controller;
-    private float moveSpeed = 0.01f; //TODO - Make speed faster over time 
-    private bool inRange;
+    private float moveSpeed = 1f; //TODO - Make speed faster over time 
     public float distance;
     public GameObject health;
     private HealthController healthController;
     private int count;
-    private GameObject track;
     private GameObject player;
-    private NavMeshAgent navM;
+    public NavMeshAgent navM;
+    private float gravity = -3f;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         gameObject.transform.position = new Vector3 (-40, 0, -1);
-        controller = GetComponent<CharacterController>();
+        gameObject.transform.rotation = Quaternion.Euler(0,90,0);
         healthController = health.GetComponent<HealthController>();
-        inRange = false; 
         count = 0;
         navM = GetComponent<NavMeshAgent>(); 
     }
@@ -32,50 +29,21 @@ public class LionMovement : MonoBehaviour
     {   
         Vector3 playerPosition = player.transform.position;
         distance = Vector3.Distance(gameObject.transform.position, playerPosition);
-        //if (track.name==null) {
-        //navM.Move(Vector3.back*Time.deltaTime);
+        playerPosition.y += gravity * Time.deltaTime;
         navM.SetDestination(playerPosition);
-        /*}
-        else
-        { */
-           // gameObject.transform.position = Vector3.MoveTowards(controller.transform.position, track.transform.position, moveSpeed);
-        /*
-        }*/
-        if (distance < 1f)
+        navM.speed = moveSpeed;
+        Vector3 delta = new Vector3(playerPosition.x - gameObject.transform.position.x, 0.0f, playerPosition.z - gameObject.transform.position.z);
+        Quaternion rotation = Quaternion.LookRotation(delta);
+        gameObject.transform.rotation = rotation;   
+        if (distance < 2f)
         {
             count++;
-            if(count == 1 && healthController.healthPoints>0) 
-            { 
-                    healthController.SetHP(healthController.healthPoints - 1);
-                    StartCoroutine(DamageWaiter());
+            if (count == 1 && healthController.healthPoints > 0)
+            {
+                healthController.SetHP(healthController.healthPoints - 1);
+                StartCoroutine(DamageWaiter());
             }
-            
-        }
 
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        /*if (other.gameObject.tag.Equals("FieldTrack") && !inRange)
-        {
-            track = other.gameObject;
-        }*/
-       if (other.gameObject.tag.Equals("Player"))
-        { 
-            //track.GetComponent<Collider>().enabled=false;
-            inRange = true;
-
-        } 
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag.Equals("Player"))
-        {
-            inRange = false;
-            //track.name = null;
-            //track.GetComponent<Collider>().enabled = true;
         }
     }
 
