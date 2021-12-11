@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class HealthController : MonoBehaviour
 {
     
-    public int healthPoints;
+    private int healthPoints;
     [SerializeField] private Image[] hearts;
     [SerializeField] private Text gameStatus;
     private int hpTemp;
     private List<Image> heartsToCount;
-    public PlayerInput playerInput;
 
     void Start()
     {
@@ -30,9 +28,9 @@ public class HealthController : MonoBehaviour
     void Update()
     {
         if(healthPoints < hpTemp)
-        {
+        {  
             UpdateHealth();
-            hpTemp=healthPoints;
+            hpTemp = healthPoints;
         } 
         if (healthPoints == 0)
         {
@@ -42,8 +40,10 @@ public class HealthController : MonoBehaviour
 
     private void UpdateHealth()
     {
+        Debug.Log(message: "To update HP...");
         if (healthPoints%2 == 0)
         {
+            Debug.Log(message: "Even");
             for (int i = 0; i < hearts.Length; i++) { 
                 if (hearts[i].enabled == false)
                 {
@@ -61,7 +61,8 @@ public class HealthController : MonoBehaviour
             }
         }
         else
-        { 
+        {
+            Debug.Log(message: "Odd");
             for (int i = 0;i < hearts.Length; i++)
             {
                 if (!hearts[i].enabled)
@@ -80,4 +81,8 @@ public class HealthController : MonoBehaviour
         healthPoints = HP;
     }
 
+    public int GetHP()
+    {
+        return healthPoints;
+    }
 }
