@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private float speed = 200f;
     public PlayerInput playerInput;
     private Vector3 moveInput;
-    private float jump = 3f;
-    private float gravity = -3f;
+    private float jump = 2f;
+    private float gravity = -2f;
     private float jumpHeight;
 
     void Start()
@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
         float verticalAxis = inputMove.y;
         float horizontalAxis = inputMove.x;
 
-        
-        
         if ((inputMove.y !=0f || inputMove.x != 0f ) && playerInput.actions["JumpMovement"].ReadValue<float>() <= 0)
         {
             Moves();
@@ -61,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput.y = gravity * Time.deltaTime;
 
-        if (moveInput.z < 0f)
+        if (moveInput.x < 0f)
         {
             moveInput += moveInput * Time.deltaTime * speed / 2;
         }

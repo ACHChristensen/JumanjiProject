@@ -22,8 +22,6 @@ public class LionAnimationHandler : MonoBehaviour
         horizontalAxis = lionMovement.navM.velocity.x;
         verticalAxis =  lionMovement.navM.velocity.z;
 
-
-
         lionAnimator.SetFloat("horienzontal", horizontalAxis);
         lionAnimator.SetFloat("vertical", verticalAxis);
     }

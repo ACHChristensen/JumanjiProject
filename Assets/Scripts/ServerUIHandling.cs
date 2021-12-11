@@ -21,14 +21,15 @@ public class ServerUIHandling : MonoBehaviour
     public GameObject coinLogo;
     private Color whiteTransparent;
     private bool lionSpawned;
+    [SerializeField] private GameObject lionUIHandler;
     [SerializeField] private GameObject startPoint;
     void Start()
     {
-        distanceFromLion = GetComponentInChildren<Text>();
+        distanceFromLion = lionUIHandler.GetComponentInChildren<Text>();
         playerItems = player.GetComponent<PlayerAttachmentsHandler>();
         amountCoints = cointCounter.GetComponent<Text>(); 
         lionSpawned = false;
-        distanceFromLion.text = "";
+        lionUIHandler.SetActive(false);
     }
 
     void FixedUpdate()
@@ -41,6 +42,7 @@ public class ServerUIHandling : MonoBehaviour
             lionSpawned=true;
         }
         else if (lionSpawned) {
+            lionUIHandler.SetActive(true);
             LionDistance();
         }
         CointsManagement();
@@ -57,10 +59,10 @@ public class ServerUIHandling : MonoBehaviour
         lionDistance = (lion.GetComponent<LionMovement>().distance);
         if((int)lionDistance == 0 )
         {
-            distanceFromLion.text = "Lion: <" + (int)lionDistance + " m";
+            distanceFromLion.text = "<" + (int)lionDistance + " m";
         }
         else { 
-        distanceFromLion.text = "Lion: "+ (int)lionDistance +" m";
+        distanceFromLion.text =  + (int)lionDistance +" m";
         }
         if (lionDistance <= 5)
         {
