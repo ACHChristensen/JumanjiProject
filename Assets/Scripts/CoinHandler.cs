@@ -37,7 +37,7 @@ public class CoinHandler : MonoBehaviour
         Vector3 position = collider.transform.localPosition;
         Bounds size = collider.bounds;
         
-        Vector3 randomPointInCollider = new Vector3(Random.Range(collider.bounds.min.x, size.max.x) , -4 + position.y, Random.Range(size.min.z, size.max.z) );
+        Vector3 randomPointInCollider = new Vector3(Random.Range(collider.bounds.min.x, size.max.x) , Random.Range(collider.bounds.min.y, size.max.y-4), Random.Range(size.min.z, size.max.z) );
        
         return randomPointInCollider;
     
