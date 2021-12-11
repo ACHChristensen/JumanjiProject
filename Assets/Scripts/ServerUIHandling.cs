@@ -27,7 +27,7 @@ public class ServerUIHandling : MonoBehaviour
     {
         distanceFromLion = lionUIHandler.GetComponentInChildren<Text>();
         playerItems = player.GetComponent<PlayerAttachmentsHandler>();
-        amountCoints = cointCounter.GetComponent<Text>(); 
+        amountCoints = cointCounter.GetComponent<Text>();
         lionSpawned = false;
         lionUIHandler.SetActive(false);
     }

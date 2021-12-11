@@ -428,12 +428,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a3664c69b0a4f4b9e69a459c2a6fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 0
+  healthPoints: 10
   hearts:
   - {fileID: 284149432029700918}
   - {fileID: 284149431747363570}
   - {fileID: 284149432117128857}
   - {fileID: 284149431664383010}
   - {fileID: 284149431388077922}
-  gameStatus: {fileID: 0}
-  playerInput: {fileID: 0}
+  gameStatus: {fileID: 3219862742787938472, guid: d2e3e487f28ba174ab9273941e25d0ba, type: 3}
+  playerInput: {fileID: 5516119485904826097, guid: 703a8c43723045149a1eba01a484b825, type: 3}

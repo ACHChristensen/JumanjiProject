@@ -8,6 +8,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4051653049022528545}
   m_Mesh: {fileID: 4300000, guid: 22870f70af8984a459c4f92d6f8142b8, type: 3}
+--- !u!114 &4989214002109105993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4051653049022528545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebd64a3308dd5c4e83807488c79d1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &7634013908787779719
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17,18 +29,18 @@ NavMeshAgent:
   m_GameObject: {fileID: 4051653049022528545}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.50000006
+  m_Radius: 1
   m_Speed: 1
   m_Acceleration: 1
   avoidancePriority: 50
-  m_AngularSpeed: 1
+  m_AngularSpeed: 0.5
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0
-  m_WalkableMask: 5
+  m_Height: 1.5
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &8298953111158216928
 MonoBehaviour:
@@ -44,19 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 0
   health: {fileID: 284149433113154659, guid: b1fc26e34c9e0434db8e4dd63bdc8da3, type: 3}
---- !u!114 &4989214002109105993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4051653049022528545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ebd64a3308dd5c4e83807488c79d1b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lionAnimator: {fileID: 0}
+  navM: {fileID: 0}
 --- !u!1001 &4051653049022442793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479434, guid: 69180139601453e4cabe50b190cd9874, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479434, guid: 69180139601453e4cabe50b190cd9874, type: 3}
       propertyPath: m_LocalPosition.z
