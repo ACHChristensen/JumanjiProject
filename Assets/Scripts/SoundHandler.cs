@@ -5,14 +5,13 @@ using UnityEngine;
 public class SoundHandler : MonoBehaviour
 {
     [SerializeField] private AudioClip music;
-    [SerializeField] private bool muted;
     [SerializeField] private AudioSource lionRawl;
     [SerializeField] private GameObject lion;
     private LionAnimationHandler lionAnimator;
 
     void Start()
     {
-        muted = true;
+        lionRawl.mute = false;
         lionAnimator = lion.GetComponent<LionAnimationHandler>();
       
     }
@@ -34,6 +33,6 @@ public class SoundHandler : MonoBehaviour
 
     public void SetMutedState(bool muted)
     {
-        this.muted = muted; 
+        lionRawl.mute = muted; 
     }
 }

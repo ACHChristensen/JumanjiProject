@@ -24,7 +24,7 @@ public class LionMovement : MonoBehaviour
   
         healthController = health.GetComponent<HealthController>();
         count = 0;
-        moveSpeed = 4f;
+        moveSpeed = 5f;
         
     }
 
