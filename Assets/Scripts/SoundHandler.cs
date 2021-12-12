@@ -1,30 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SoundHandler : MonoBehaviour
 {
     [SerializeField] private AudioClip music;
-    [SerializeField] private bool muted;
     [SerializeField] private AudioSource lionRawl;
-    [SerializeField] private GameObject UIHandler;
-    private Text LionUI;
+    [SerializeField] private GameObject lion;
+    private LionAnimationHandler lionAnimator;
 
     void Start()
     {
-        muted = true;
-        LionUI = UIHandler.GetComponent<ServerUIHandling>().distanceFromLion;
+        lionRawl.mute = false;
+        lionAnimator = lion.GetComponent<LionAnimationHandler>();
+      
     }
 
     void FixedUpdate()
-    {   
-        if(LionUI.color.Equals(Color.red))
+    {
+        if (lionAnimator.roarTime)
         {
             if (!lionRawl.isPlaying)
             {
-                //lionRawl.mute = false;
-                //lionRawl.Play();
+                lionRawl.mute = false;
+                lionRawl.Play();
             }
         } else
         {
@@ -34,6 +33,6 @@ public class SoundHandler : MonoBehaviour
 
     public void SetMutedState(bool muted)
     {
-        this.muted = muted; 
+        lionRawl.mute = muted; 
     }
 }

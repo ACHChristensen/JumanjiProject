@@ -9,20 +9,12 @@ public class PlayerMovement : MonoBehaviour
 {
     public Animator animation;
     public CharacterController controller;
-    private float speed = 200f;
+    private float speed = 175f;
     public PlayerInput playerInput;
     private Vector3 moveInput;
     private float jump = 2f;
     private float gravity = -2f;
     private float jumpHeight;
-
-    void Start()
-    {
-        controller.SimpleMove(Vector3.forward * 0);
-        controller.SimpleMove(Vector3.right * 0);
-        controller.SimpleMove(Vector3.left * 0);
-        controller.SimpleMove(Vector3.back * 0);
-    }
 
     void FixedUpdate()
     {
@@ -38,12 +30,18 @@ public class PlayerMovement : MonoBehaviour
         }
         this.animation.SetFloat("vertical", verticalAxis);
         this.animation.SetFloat("horizental", horizontalAxis);
+        //moveInput.Normalize();
+
+        /*if (moveInput != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(moveInput, Vector3.up);
+            controller.transform.rotation = Quaternion.RotateTowards(controller.transform.rotation, toRotation, 20f * Time.deltaTime);
+        }*/
         if (controller.isGrounded)
         {
             if (playerInput.actions["JumpMovement"].ReadValue<float>() > 0)
             {
-                
-                this.animation.SetTrigger("jump");
+               this.animation.SetTrigger("jump");
                 jumpHeight = jump;
             }
            
@@ -68,6 +66,16 @@ public class PlayerMovement : MonoBehaviour
             moveInput += moveInput * Time.deltaTime * speed;
         }
         
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+    
+    public float GetSpeed()
+    {
+       return this.speed;
     }
 
 

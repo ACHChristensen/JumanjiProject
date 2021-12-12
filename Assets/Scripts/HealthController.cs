@@ -9,13 +9,14 @@ public class HealthController : MonoBehaviour
     private int healthPoints;
     [SerializeField] private Image[] hearts;
     [SerializeField] private Text gameStatus;
+    private GameStatusUI gameStatusController;
     private int hpTemp;
     private List<Image> heartsToCount;
 
     void Start()
     {
         healthPoints = 10;
-        gameStatus.text = "";
+        gameStatusController = gameStatus.GetComponent<GameStatusUI>();
         hpTemp = healthPoints;
         heartsToCount = new List<Image>();
         foreach (Image heart in hearts)
@@ -34,7 +35,7 @@ public class HealthController : MonoBehaviour
         } 
         if (healthPoints == 0)
         {
-            gameStatus.text = "GAME OVER!";
+            gameStatusController.SetGameStatus("lost");
         }
     }
 
