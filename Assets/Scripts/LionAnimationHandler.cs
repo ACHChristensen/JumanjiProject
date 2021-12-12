@@ -10,7 +10,7 @@ public class LionAnimationHandler : MonoBehaviour
     private float verticalAxis;
     private LionMovement lionMovement;
     private NavMeshAgent navMeshAgent;
-    private int count;
+    public bool roarTime;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class LionAnimationHandler : MonoBehaviour
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         horizontalAxis = 0;
         verticalAxis = 0;
-        count = 0;
+        roarTime = false;
     }
 
     void Update()
@@ -33,12 +33,10 @@ public class LionAnimationHandler : MonoBehaviour
         if (navMeshAgent.acceleration <= 1f)
         {
             lionAnimator.SetTrigger("distanceClose");
-            count++;
-            
-        } else if(count == 1 && navMeshAgent.acceleration > 1f)
+            roarTime = true;            
+        } else 
         {
-            lionAnimator.SetTrigger("noLongerClose");
-            count--;
+            roarTime = false;
         }
 
     }

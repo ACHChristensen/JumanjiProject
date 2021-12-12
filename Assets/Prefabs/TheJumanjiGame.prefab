@@ -627,7 +627,7 @@ MonoBehaviour:
   music: {fileID: 8300000, guid: 4d9f53e158a85df44b6347110bcc469e, type: 3}
   muted: 0
   lionRawl: {fileID: 2010661797188909265}
-  UIHandler: {fileID: 2010661796758907696}
+  lion: {fileID: 4051653049022528545, guid: 01c6f407edb6f2d46b588149aa21671c, type: 3}
 --- !u!82 &2010661797188909265
 AudioSource:
   m_ObjectHideFlags: 0
