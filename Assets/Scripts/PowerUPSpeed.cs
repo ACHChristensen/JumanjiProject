@@ -8,12 +8,16 @@ public class PowerUPSpeed : MonoBehaviour
     float newSpeed;
     private GameObject player;
     private bool done;
+    public bool powerUp;
 
     void Update()
     {
         PowerUpController.Rotate(this.gameObject);
-        this.done = PowerUpController.done;
-        if (done)
+        done = PowerUpController.done;
+        if (!done)
+        {
+        }
+        else if (done)
         {
             AfterAbility();
             done = false;
@@ -25,19 +29,25 @@ public class PowerUPSpeed : MonoBehaviour
         if (other.gameObject.tag.Equals("Player"))
         {   player = other.gameObject;
             oldSpeed = player.GetComponent<PlayerMovement>().GetSpeed();
+            if (powerUp) { 
             newSpeed = 300f;
-            Ability(other.gameObject);
+            }
+            else if(!powerUp)
+            {
+                newSpeed = 75f;
+            }
+            Ability(player);
+            PowerUpController.SetActiveFalse(this.gameObject);
         }
     }
 
     public void Ability(GameObject player)
     {   
-        player.GetComponent<PlayerMovement>().SetSpeed(newSpeed);
-        this.gameObject.SetActive(false);   
+        player.GetComponent<PlayerMovement>().SetSpeed(newSpeed);   
     }
 
     public void AfterAbility()
-    {
+    {   
         player.GetComponent<PlayerMovement>().SetSpeed(oldSpeed);
         Physics.SyncTransforms();
     }

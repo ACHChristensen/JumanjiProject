@@ -7,7 +7,6 @@ public class Coin : MonoBehaviour
     private bool coinAchieved;
     private float rotation = 90f;
     public CoinHandler coinHandler;
-    private bool done;
     void Start()
     {
         coinHandler = GameObject.Find("CoinHandler").GetComponent<CoinHandler>();

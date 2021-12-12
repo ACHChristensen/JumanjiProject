@@ -48,8 +48,7 @@ public class CoinHandler : MonoBehaviour
             if (timer > offsetTime)
             {
                 timer = 0f;
-                coin.SetActive(true);
-                done = true;   
+                coin.SetActive(true);   
             }
                 
         }

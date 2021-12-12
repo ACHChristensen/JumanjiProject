@@ -5,28 +5,43 @@ using UnityEngine;
 public class PowerUpController : MonoBehaviour
 {
     public static float rotation = 90f;
-    public static bool done = false;
+    public static bool done;
     public List<GameObject> powerUps;
     private float timer = 0f;
-    private float offsetTime = 2f;
+    private float offsetTime = 3f;
+
+    private void Start()
+    {
+        done = false;   
+    }
 
     private void Update()
     {
-        for (int i = 0; i < powerUps.Count; i++)
-        { 
+        foreach (GameObject powerUp in powerUps)
+        {
             
-            if (!powerUps[i].activeSelf)
-             {
-                timer += Time.deltaTime;
-                if (timer > offsetTime)
-                {
-                    timer = 0f;
-                    powerUps[i].SetActive(true);
-                    done = true;   
-                }
-                
-            }
+            Respawn(powerUp);
         }
+    }
+
+    private void Respawn(GameObject powerUP)
+    {
+        if (!powerUP.activeSelf)
+        {
+            Debug.Log(powerUP.name);
+            timer += Time.deltaTime;
+            if (timer > offsetTime)
+            {
+                timer = 0f;
+                powerUP.SetActive(true);
+            }
+
+        }
+    }
+
+    public static void SetActiveFalse(GameObject power)
+    {
+        power.SetActive(false);
     }
 
     public static void Rotate(GameObject powerUp)
