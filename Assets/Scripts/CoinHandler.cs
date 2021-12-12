@@ -7,6 +7,9 @@ public class CoinHandler : MonoBehaviour
     public GameObject coinPrefab;
     public List<Collider> colliders;
     private List<GameObject> coins;
+    private float timer = 0f;
+    private float offsetTime = 4f;
+    public static bool done = false;
 
     private void Start()
     {
@@ -30,6 +33,27 @@ public class CoinHandler : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        foreach (GameObject coin in coins)
+        {
+            Respawn(coin);
+        }
+    }
+
+    private void Respawn(GameObject coin) { 
+        if (!coin.activeSelf)
+        {
+            timer += Time.deltaTime;
+            if (timer > offsetTime)
+            {
+                timer = 0f;
+                coin.SetActive(true);
+                done = true;   
+            }
+                
+        }
+    }
     private Vector3 GetRandomPointInCollider(Collider collider)
     { 
         Vector3 position = collider.transform.localPosition;
@@ -41,6 +65,7 @@ public class CoinHandler : MonoBehaviour
     
     }
 
+
     /*void Update()
     {   foreach (GameObject coin in coins) { 
         coinAchieved = coin.GetComponent<Coin>().GetCoinAchieved();
@@ -48,17 +73,17 @@ public class CoinHandler : MonoBehaviour
             StartCoroutine(CoinSpawnWait(coin));
         }
          }
-    }*/
+    }
+*/
 
-
-    public IEnumerator CoinSpawnWait(GameObject coin)
+    public void CoinSpawnWait(GameObject coin)
     {   //coin.gameObject.GetComponent<Collider>().enabled = false;
        coin.SetActive(false);
-       yield return new WaitForSeconds(6);
+      /* yield return new WaitForSeconds(6);
        //coin.GetComponent<Coin>().SetCoinAchieved(false);
         //coin.gameObject.GetComponent<Collider>().enabled = true;
         coin.SetActive(true);
-        
+        */
     }
 
 }

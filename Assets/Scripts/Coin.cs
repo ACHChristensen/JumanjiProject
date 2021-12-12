@@ -7,6 +7,7 @@ public class Coin : MonoBehaviour
     private bool coinAchieved;
     private float rotation = 90f;
     public CoinHandler coinHandler;
+    private bool done;
     void Start()
     {
         coinHandler = GameObject.Find("CoinHandler").GetComponent<CoinHandler>();
@@ -25,7 +26,8 @@ public class Coin : MonoBehaviour
         if (other.gameObject.tag.Equals("Player") /*&& !coinAchieved*/)
         {
             other.gameObject.GetComponent<PlayerAttachmentsHandler>().plusOneCoin();
-            StartCoroutine(coinHandler.CoinSpawnWait(this.gameObject));
+            coinHandler.CoinSpawnWait(this.gameObject);
+            Physics.SyncTransforms();
             //coinAchieved = true;
         }
         /*if (other.gameObject.layer.Equals("Terrain") || other.gameObject.tag.Equals("Wooden"))

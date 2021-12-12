@@ -4,30 +4,42 @@ using UnityEngine;
 
 public class PowerUPSpeed : MonoBehaviour
 {
-    private float rotation = 90f;
-
+    float oldSpeed;
+    float newSpeed;
+    private GameObject player;
+    private bool done;
 
     void Update()
     {
-        transform.Rotate(0, 0, rotation * Time.deltaTime);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag.Equals("Player"))
+        PowerUpController.Rotate(this.gameObject);
+        this.done = PowerUpController.done;
+        if (done)
         {
-            StartCoroutine(SpeedHandler(other.gameObject));
+            AfterAbility();
+            done = false;
         }
     }
 
-    public IEnumerator SpeedHandler(GameObject player)
-    {   
-        float oldSpeed = player.GetComponent<PlayerMovement>().GetSpeed();
-        player.GetComponent<PlayerMovement>().SetSpeed(300f);
-        this.gameObject.SetActive(false);
-        yield return new WaitForSeconds(4);
-        player.GetComponent<PlayerMovement>().SetSpeed(oldSpeed);
-        this.gameObject.SetActive(true);
-
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Player"))
+        {   player = other.gameObject;
+            oldSpeed = player.GetComponent<PlayerMovement>().GetSpeed();
+            newSpeed = 300f;
+            Ability(other.gameObject);
+        }
     }
+
+    public void Ability(GameObject player)
+    {   
+        player.GetComponent<PlayerMovement>().SetSpeed(newSpeed);
+        this.gameObject.SetActive(false);   
+    }
+
+    public void AfterAbility()
+    {
+        player.GetComponent<PlayerMovement>().SetSpeed(oldSpeed);
+        Physics.SyncTransforms();
+    }
+
 }
