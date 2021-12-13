@@ -33,12 +33,6 @@ public class HealthController : MonoBehaviour
         healthPoints = 10;
         gameStatusController = gameStatus.GetComponent<GameStatusUI>();
         hpTemp = healthPoints;
-       /* heartsToCount = new List<Image>();
-        foreach (Image heart in hearts)
-        {
-            heartsToCount.Add(heart);   
-        }
-       */
     }
 
 

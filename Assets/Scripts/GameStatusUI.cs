@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class GameStatusUI : MonoBehaviour
 {
-    public GameObject endLine;
+    private GameObject statusGame;
     public static string status;
 
     void Start()
     {
+        statusGame = GameObject.FindGameObjectWithTag("GameStatus"); 
         status = "";
     }
 
@@ -20,17 +21,20 @@ public class GameStatusUI : MonoBehaviour
 
     public void SetGameStatus(string gameStatusWord)
     {
-
-        if(gameStatusWord.Equals("won"))
+        
+        if(gameStatusWord.Equals("won") )
         {
-           this.GetComponent<Text>().text = "VICTORY!";
+            statusGame.GetComponent<Text>().color = Color.Lerp(Color.gray, Color.green, 0.5f); 
+                statusGame.GetComponent<Text>().text = "VICTORY!";
         }
-        else if(gameStatusWord.Equals("lost")) { 
+        else if(gameStatusWord.Equals("lost")) {
 
-             this.GetComponent<Text>().text = "GAME OVER";
+                statusGame.GetComponent<Text>().text = "GAME OVER";
         }else
-        {    this.GetComponent<Text>().text = "";
+        {
+                statusGame.GetComponent<Text>().text = "";
         }
+      
     }
 
     private void OnTriggerEnter(Collider other)

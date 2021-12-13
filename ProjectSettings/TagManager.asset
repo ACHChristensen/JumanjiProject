@@ -8,6 +8,8 @@ TagManager:
   - Wooden
   - TrackSphere
   - HP
+  - TheEndLine
+  - GameStatus
   layers:
   - Default
   - TransparentFX
