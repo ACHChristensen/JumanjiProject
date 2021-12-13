@@ -9,25 +9,35 @@ public class HealthController : MonoBehaviour
     private int healthPoints;
     [SerializeField] private Image[] hearts;
     [SerializeField] private Text gameStatus;
-    private GameStatusUI gameStatusController;
     private int hpTemp;
-    private List<Image> heartsToCount;
+    private bool lifeGained;
+    private PlayerAttachmentsHandler playerAttachmentsHandler;
+    private static HealthController hpController = null;
+
+    void Awake()
+    {
+      
+        if (hpController == null)
+        {
+            hpController = this;
+        }else if (hpController != this)
+        {
+            Destroy(hpController);
+        }
+    
+    }
 
     void Start()
     {
+        playerAttachmentsHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttachmentsHandler>();
         healthPoints = 10;
-        gameStatusController = gameStatus.GetComponent<GameStatusUI>();
         hpTemp = healthPoints;
-        heartsToCount = new List<Image>();
-        foreach (Image heart in hearts)
-        {
-            heartsToCount.Add(heart);   
-        }
     }
 
 
     void Update()
     {
+        
         if(healthPoints < hpTemp)
         {  
             UpdateHealth();
@@ -35,16 +45,21 @@ public class HealthController : MonoBehaviour
         } 
         if (healthPoints == 0)
         {
-            gameStatusController.SetGameStatus("lost");
+            GameStatusUI.status = "lost";
+        }
+        lifeGained = playerAttachmentsHandler.GetLifeGained();
+        if (lifeGained && hearts[0].enabled == false && healthPoints == hpTemp)
+        {
+            healthPoints++;
+            hpTemp = healthPoints;
+            UpdateHealth();
         }
     }
 
     private void UpdateHealth()
-    {
-        Debug.Log(message: "To update HP...");
+    {Debug.Log(healthPoints);
         if (healthPoints%2 == 0)
         {
-            Debug.Log(message: "Even");
             for (int i = 0; i < hearts.Length; i++) { 
                 if (hearts[i].enabled == false)
                 {
@@ -58,17 +73,35 @@ public class HealthController : MonoBehaviour
                 {
                     continue;
                 }
-               
+                else if (lifeGained && !hearts[i].enabled)
+                {
+                    hearts[i].enabled = true;
+                    Physics.SyncTransforms();
+                    playerAttachmentsHandler.SetLifeGained(false); 
+                    break;
+                }else if (lifeGained)
+                {
+                    hearts[i - 1].enabled = true;
+                    Physics.SyncTransforms();
+                    playerAttachmentsHandler.SetLifeGained(false);
+                    break;
+                }
+
             }
         }
         else
         {
-            Debug.Log(message: "Odd");
             for (int i = 0;i < hearts.Length; i++)
             {
                 if (!hearts[i].enabled)
                 {
                     continue ;
+                }
+                else if (lifeGained)
+                {
+                    hearts[i-1].color = Color.gray;
+                    playerAttachmentsHandler.SetLifeGained(false);
+                    break;
                 }
                 hearts[i].color = Color.gray;
                 break;

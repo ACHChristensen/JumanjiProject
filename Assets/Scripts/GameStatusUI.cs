@@ -2,60 +2,73 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameStatusUI : MonoBehaviour
 {
-    public GameObject endLine;
+    private GameObject statusGame;
+    public static string status;
+    private float timer = 0f;
+    private float offsetTime = 5f;
+    private int coins;
 
     void Start()
     {
-        SetGameStatus("");
+        statusGame = GameObject.FindGameObjectWithTag("GameStatus"); 
+        status = "";
     }
 
-    public enum GameStatus
+    private void Update()
     {
-        gameOver,
-        inGame,
-        wonGame
+        SetGameStatus(status);
     }
-
 
     public void SetGameStatus(string gameStatusWord)
     {
-        GameStatus gameStatus = new GameStatus();
-
-        if(gameStatusWord.Equals("won"))
+        
+        if(gameStatusWord.Equals("won") )
         {
-            gameStatus = GameStatus.wonGame;
+            statusGame.GetComponent<Text>().color = Color.Lerp(Color.gray, Color.green, 0.5f); 
+                statusGame.GetComponent<Text>().text = "VICTORY with "+ coins +" !";
+            WaitBeforeReset();
         }
-        else if(gameStatusWord.Equals("lost")) { 
-            gameStatus = GameStatus.gameOver; 
+        else if(gameStatusWord.Equals("lost")) {
+
+                statusGame.GetComponent<Text>().text = "GAME OVER";
+            WaitBeforeReset();
+                
         }else
         {
-            gameStatus = GameStatus.inGame;
+                statusGame.GetComponent<Text>().text = "";
         }
-
-        switch (gameStatus)
-        {
-            case GameStatus.gameOver:
-                this.GetComponent<Text>().text = "GAME OVER";
-                return;
-
-            case GameStatus.wonGame:
-                this.GetComponent<Text>().text = "VICTORY!";
-                return;
-            default:
-                this.GetComponent<Text>().text = "";
-                return;
-        }
+      
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("Player"))
         {
-            SetGameStatus("won");
+            status = "won";
         }
     }
 
+    public void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void WaitBeforeReset()
+    {
+            timer += Time.deltaTime;
+            if (timer > offsetTime)
+            {
+                timer = 0f;
+            ResetScene();
+            }
+    }
+
+    public void SetCoins(int coins)
+    {
+        this.coins = coins;
+    }
 }

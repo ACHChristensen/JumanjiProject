@@ -25,7 +25,8 @@ public class Coin : MonoBehaviour
         if (other.gameObject.tag.Equals("Player") /*&& !coinAchieved*/)
         {
             other.gameObject.GetComponent<PlayerAttachmentsHandler>().plusOneCoin();
-            StartCoroutine(coinHandler.CoinSpawnWait(this.gameObject));
+            coinHandler.CoinSpawnWait(this.gameObject);
+            Physics.SyncTransforms();
             //coinAchieved = true;
         }
         /*if (other.gameObject.layer.Equals("Terrain") || other.gameObject.tag.Equals("Wooden"))

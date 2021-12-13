@@ -7,6 +7,11 @@ TagManager:
   - FieldTrack
   - Wooden
   - TrackSphere
+  - HP
+  - TheEndLine
+  - GameStatus
+  - Life
+  - StartUI
   layers:
   - Default
   - TransparentFX
