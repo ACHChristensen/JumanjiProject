@@ -10,6 +10,7 @@ TagManager:
   - HP
   - TheEndLine
   - GameStatus
+  - Life
   layers:
   - Default
   - TransparentFX

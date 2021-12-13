@@ -9,10 +9,12 @@ public class PowerUpController : MonoBehaviour
     public List<GameObject> powerUps;
     private float timer = 0f;
     private float offsetTime = 3f;
+    private GameObject player;
 
     private void Start()
     {
         done = false;   
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -24,7 +26,7 @@ public class PowerUpController : MonoBehaviour
         }
     }
 
-    private void Respawn(GameObject powerUP)
+    public void Respawn(GameObject powerUP)
     {
         if (!powerUP.activeSelf)
         {
@@ -34,6 +36,11 @@ public class PowerUpController : MonoBehaviour
             {
                 timer = 0f;
                 powerUP.SetActive(true);
+                if (!powerUP.tag.Equals("Life"))
+                { 
+                    powerUP.GetComponent<PowerUPSpeed>().AfterAbility(player);
+                }
+                
             }
 
         }

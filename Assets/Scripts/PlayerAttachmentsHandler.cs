@@ -5,9 +5,12 @@ using UnityEngine;
 public class PlayerAttachmentsHandler : MonoBehaviour
 {
     private int amountCoints;
-    
+    public bool lifeGained;
+    private GameObject life;
+
     void Start()
     {
+        lifeGained = false;
         amountCoints = 0;
     }
 
@@ -18,5 +21,26 @@ public class PlayerAttachmentsHandler : MonoBehaviour
 
     public void plusOneCoin() { 
         amountCoints++;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Life")){
+            lifeGained = true;
+            life = other.gameObject;
+            other.gameObject.SetActive(false);
+            other.gameObject.GetComponent<PowerUpController>().Respawn(life);
+            Physics.SyncTransforms();
+
+        }
+    }
+
+    public void SetLifeGained(bool lifeGained)
+    {
+        this.lifeGained = lifeGained;
+    }
+    public bool GetLifeGained()
+    {
+        return this.lifeGained;
     }
 }

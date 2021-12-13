@@ -13,6 +13,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: -1.5, y: 0, z: -0.5}
+--- !u!114 &1879447705400732872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821369412258622251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb9331b5b36ca942a90272b384896a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUps: []
 --- !u!1001 &1551388939953297018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,6 +92,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 853b0851f8fe7aa4d8de7b3b6077ebdb, type: 3}
       propertyPath: m_Name
       value: LifeHeart Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 853b0851f8fe7aa4d8de7b3b6077ebdb, type: 3}
+      propertyPath: m_TagString
+      value: Life
       objectReference: {fileID: 0}
     - target: {fileID: 5524827607787688242, guid: 853b0851f8fe7aa4d8de7b3b6077ebdb, type: 3}
       propertyPath: m_Materials.Array.data[0]

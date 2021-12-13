@@ -7,13 +7,13 @@ public class PowerUPSpeed : MonoBehaviour
     float oldSpeed;
     float newSpeed;
     private GameObject player;
-    private bool done;
+    //private bool done;
     public bool powerUp;
 
     void Update()
     {
         PowerUpController.Rotate(this.gameObject);
-        done = PowerUpController.done;
+        /*done = PowerUpController.done;
         if (!done)
         {
         }
@@ -21,7 +21,7 @@ public class PowerUPSpeed : MonoBehaviour
         {
             AfterAbility();
             done = false;
-        }
+        }*/
     }
 
     public void OnTriggerEnter(Collider other)
@@ -46,7 +46,7 @@ public class PowerUPSpeed : MonoBehaviour
         player.GetComponent<PlayerMovement>().SetSpeed(newSpeed);   
     }
 
-    public void AfterAbility()
+    public void AfterAbility(GameObject player)
     {   
         player.GetComponent<PlayerMovement>().SetSpeed(oldSpeed);
         Physics.SyncTransforms();
