@@ -8,7 +8,7 @@ public class PowerUpController : MonoBehaviour
     public static bool done;
     private List<GameObject> powerUps;
     private float timer = 0f;
-    private float offsetTime = 3f;
+    private float offsetTime = 4f;
     private GameObject player;
 
     private void Start()

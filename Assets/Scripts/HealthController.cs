@@ -40,7 +40,7 @@ public class HealthController : MonoBehaviour
         
         if(healthPoints < hpTemp)
         {  
-            UpdateHealth();
+            LoseHealth();
             hpTemp = healthPoints;
         } 
         if (healthPoints == 0)
@@ -48,17 +48,26 @@ public class HealthController : MonoBehaviour
             GameStatusUI.status = "lost";
         }
         lifeGained = playerAttachmentsHandler.GetLifeGained();
-        if (lifeGained && hearts[0].enabled == false && healthPoints == hpTemp)
+        if (lifeGained && healthPoints < 10)
         {
-            healthPoints++;
+            SetHP(GetHP() + 1); 
             hpTemp = healthPoints;
-            UpdateHealth();
+            IncreaseHealth();
+            playerAttachmentsHandler.SetLifeGained(false);
         }
     }
 
-    private void UpdateHealth()
+    private void LoseHealth()
     {Debug.Log(healthPoints);
-        if (healthPoints%2 == 0)
+
+        if (healthPoints % 2 != 0)
+        {
+            OddNumberLife();
+        } else
+        {
+            EvenNumberLife();
+        }
+        /*if (healthPoints%2 == 0)
         {
             for (int i = 0; i < hearts.Length; i++) { 
                 if (hearts[i].enabled == false)
@@ -107,7 +116,38 @@ public class HealthController : MonoBehaviour
                 break;
             }
             
+        }*/
+    }
+
+    private void EvenNumberLife()
+    {
+        hearts[hearts.Length - (healthPoints / 2)-1].enabled = false;
+    }
+    private void OddNumberLife()
+    {
+        hearts[hearts.Length - (healthPoints / 2)-1].color = Color.gray;
+    }
+
+    private void IncreaseHealth()
+    {
+        if (healthPoints % 2 != 0)
+        {
+            OddNumberLifeAdd();
         }
+        else
+        {
+            EvenNumberLifeAdd();
+        }
+    }
+
+    private void EvenNumberLifeAdd()
+    {
+        hearts[hearts.Length - (healthPoints / 2)].color = Color.white;
+    }
+    private void OddNumberLifeAdd()
+    {
+        hearts[hearts.Length - (healthPoints / 2) - 1].enabled = true;
+        hearts[hearts.Length - (healthPoints / 2) - 1].color = Color.gray;
     }
 
     public void SetHP(int HP)
