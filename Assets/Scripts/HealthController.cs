@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Mirror;
 public class HealthController : MonoBehaviour
 {
     
@@ -29,31 +29,36 @@ public class HealthController : MonoBehaviour
 
     void Start()
     {
-        playerAttachmentsHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttachmentsHandler>();
-        healthPoints = 10;
-        hpTemp = healthPoints;
+        if (NetworkClient.active)
+        {
+            playerAttachmentsHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttachmentsHandler>();
+            healthPoints = 10;
+            hpTemp = healthPoints;
+        }
     }
 
 
     void Update()
     {
-        
-        if(healthPoints < hpTemp)
-        {  
-            LoseHealth();
-            hpTemp = healthPoints;
-        } 
-        if (healthPoints == 0)
+        if (NetworkClient.active)
         {
-            GameStatusUI.status = "lost";
-        }
-        lifeGained = playerAttachmentsHandler.GetLifeGained();
-        if (lifeGained && healthPoints < 10)
-        {
-            SetHP(GetHP() + 1); 
-            hpTemp = healthPoints;
-            IncreaseHealth();
-            playerAttachmentsHandler.SetLifeGained(false);
+            if (healthPoints < hpTemp)
+            {
+                LoseHealth();
+                hpTemp = healthPoints;
+            }
+            if (healthPoints == 0)
+            {
+                GameStatusUI.status = "lost";
+            }
+            lifeGained = playerAttachmentsHandler.GetLifeGained();
+            if (lifeGained && healthPoints < 10)
+            {
+                SetHP(GetHP() + 1);
+                hpTemp = healthPoints;
+                IncreaseHealth();
+                playerAttachmentsHandler.SetLifeGained(false);
+            }
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 public class ServerUIHandling : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class ServerUIHandling : MonoBehaviour
     public Text distanceFromLion;
     private float lionDistance;
     private float startDistance;
-    [SerializeField] private GameObject player;
+    private GameObject player;
     private PlayerAttachmentsHandler playerItems;
     private Text amountCoints;
     [SerializeField] private GameObject cointCounter;
@@ -25,28 +26,36 @@ public class ServerUIHandling : MonoBehaviour
     [SerializeField] private GameObject startPoint;
     void Start()
     {
+        if (NetworkClient.active) { 
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerItems = player.GetComponent<PlayerAttachmentsHandler>();
+        }
         distanceFromLion = lionUIHandler.GetComponentInChildren<Text>();
-        playerItems = player.GetComponent<PlayerAttachmentsHandler>();
         amountCoints = cointCounter.GetComponent<Text>();
         lionSpawned = false;
         lionUIHandler.SetActive(false);
+        
     }
 
     void FixedUpdate()
     {
-        
-        startDistance = Vector3.Distance(startPoint.transform.position, player.transform.position);
-       
-        if (startDistance > 12 && !lionSpawned) {
-            lion = Instantiate<GameObject>(lionPrefab,startPoint.transform);
-            lionSpawned=true;
+        if (NetworkClient.active)
+        {
+            startDistance = Vector3.Distance(startPoint.transform.position, player.transform.position);
+
+            if (startDistance > 12 && !lionSpawned)
+            {
+                lion = Instantiate<GameObject>(lionPrefab, startPoint.transform);
+                lionSpawned = true;
+            }
+            else if (lionSpawned)
+            {
+                lionUIHandler.SetActive(true);
+                LionDistance();
+            }
+            CointsManagement();
+            coinLogo.transform.Rotate(Vector3.down * 50 * Time.deltaTime, Space.World);
         }
-        else if (lionSpawned) {
-            lionUIHandler.SetActive(true);
-            LionDistance();
-        }
-        CointsManagement();
-        coinLogo.transform.Rotate(Vector3.down * 50 * Time.deltaTime, Space.World); 
     }
 
     private void CointsManagement()
