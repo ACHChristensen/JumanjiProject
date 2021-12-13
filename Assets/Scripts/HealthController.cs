@@ -29,7 +29,7 @@ public class HealthController : MonoBehaviour
 
     void Start()
     {
-        if (NetworkClient.active)
+        if (NetworkClient.localPlayer.gameObject!=null)
         {
             playerAttachmentsHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttachmentsHandler>();
             healthPoints = 10;
@@ -40,7 +40,7 @@ public class HealthController : MonoBehaviour
 
     void Update()
     {
-        if (NetworkClient.active)
+        if (NetworkClient.localPlayer.gameObject != null)
         {
             if (healthPoints < hpTemp)
             {
@@ -63,8 +63,7 @@ public class HealthController : MonoBehaviour
     }
 
     private void LoseHealth()
-    {Debug.Log(healthPoints);
-
+    { 
         if (healthPoints % 2 != 0)
         {
             OddNumberLife();

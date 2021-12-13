@@ -26,10 +26,8 @@ public class ServerUIHandling : MonoBehaviour
     [SerializeField] private GameObject startPoint;
     void Start()
     {
-        if (NetworkClient.active) { 
             player = GameObject.FindGameObjectWithTag("Player");
             playerItems = player.GetComponent<PlayerAttachmentsHandler>();
-        }
         distanceFromLion = lionUIHandler.GetComponentInChildren<Text>();
         amountCoints = cointCounter.GetComponent<Text>();
         lionSpawned = false;
@@ -39,8 +37,6 @@ public class ServerUIHandling : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (NetworkClient.active)
-        {
             startDistance = Vector3.Distance(startPoint.transform.position, player.transform.position);
 
             if (startDistance > 12 && !lionSpawned)
@@ -55,7 +51,6 @@ public class ServerUIHandling : MonoBehaviour
             }
             CointsManagement();
             coinLogo.transform.Rotate(Vector3.down * 50 * Time.deltaTime, Space.World);
-        }
     }
 
     private void CointsManagement()
