@@ -10,6 +10,7 @@ public class CoinHandler : MonoBehaviour
     private float timer = 0f;
     private float offsetTime = 4f;
     public static bool done = false;
+     
 
     private void Start()
     {

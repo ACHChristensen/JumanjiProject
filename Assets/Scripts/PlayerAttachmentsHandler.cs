@@ -43,4 +43,9 @@ public class PlayerAttachmentsHandler : MonoBehaviour
     {
         return this.lifeGained;
     }
+
+    public int GetAmountOfCoins()
+    {
+        return amountCoints;
+    }
 }

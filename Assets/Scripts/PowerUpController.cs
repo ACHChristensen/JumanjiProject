@@ -6,15 +6,20 @@ public class PowerUpController : MonoBehaviour
 {
     public static float rotation = 90f;
     public static bool done;
-    public List<GameObject> powerUps;
+    private List<GameObject> powerUps;
     private float timer = 0f;
     private float offsetTime = 3f;
     private GameObject player;
 
     private void Start()
     {
+        powerUps = new List<GameObject>();  
         done = false;   
         player = GameObject.FindGameObjectWithTag("Player");
+        foreach (Transform t in transform)
+        {
+            powerUps.Add(t.gameObject);
+        }
     }
 
     private void Update()

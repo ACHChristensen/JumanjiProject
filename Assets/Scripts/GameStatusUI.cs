@@ -10,6 +10,7 @@ public class GameStatusUI : MonoBehaviour
     public static string status;
     private float timer = 0f;
     private float offsetTime = 5f;
+    private int coins;
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class GameStatusUI : MonoBehaviour
         if(gameStatusWord.Equals("won") )
         {
             statusGame.GetComponent<Text>().color = Color.Lerp(Color.gray, Color.green, 0.5f); 
-                statusGame.GetComponent<Text>().text = "VICTORY!";
+                statusGame.GetComponent<Text>().text = "VICTORY with "+ coins +" !";
             WaitBeforeReset();
         }
         else if(gameStatusWord.Equals("lost")) {
@@ -64,5 +65,10 @@ public class GameStatusUI : MonoBehaviour
                 timer = 0f;
             ResetScene();
             }
+    }
+
+    public void SetCoins(int coins)
+    {
+        this.coins = coins;
     }
 }

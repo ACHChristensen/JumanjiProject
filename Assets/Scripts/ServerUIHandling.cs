@@ -38,7 +38,7 @@ public class ServerUIHandling : MonoBehaviour
         startDistance = Vector3.Distance(startPoint.transform.position, player.transform.position);
        
         if (startDistance > 12 && !lionSpawned) {
-            lion = Instantiate<GameObject>(lionPrefab);
+            lion = Instantiate<GameObject>(lionPrefab,startPoint.transform);
             lionSpawned=true;
         }
         else if (lionSpawned) {
