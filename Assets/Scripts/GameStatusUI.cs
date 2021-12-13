@@ -6,47 +6,30 @@ using UnityEngine.UI;
 public class GameStatusUI : MonoBehaviour
 {
     public GameObject endLine;
+    public static string status;
 
     void Start()
     {
-        SetGameStatus("");
+        status = "";
     }
 
-    public enum GameStatus
+    private void Update()
     {
-        gameOver,
-        inGame,
-        wonGame
+        SetGameStatus(status);
     }
-
 
     public void SetGameStatus(string gameStatusWord)
     {
-        GameStatus gameStatus = new GameStatus();
 
         if(gameStatusWord.Equals("won"))
         {
-            gameStatus = GameStatus.wonGame;
+           this.GetComponent<Text>().text = "VICTORY!";
         }
         else if(gameStatusWord.Equals("lost")) { 
-            gameStatus = GameStatus.gameOver; 
+
+             this.GetComponent<Text>().text = "GAME OVER";
         }else
-        {
-            gameStatus = GameStatus.inGame;
-        }
-
-        switch (gameStatus)
-        {
-            case GameStatus.gameOver:
-                this.GetComponent<Text>().text = "GAME OVER";
-                return;
-
-            case GameStatus.wonGame:
-                this.GetComponent<Text>().text = "VICTORY!";
-                return;
-            default:
-                this.GetComponent<Text>().text = "";
-                return;
+        {    this.GetComponent<Text>().text = "";
         }
     }
 
@@ -54,7 +37,7 @@ public class GameStatusUI : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            SetGameStatus("won");
+            status = "won";
         }
     }
 

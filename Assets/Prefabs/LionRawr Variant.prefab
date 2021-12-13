@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0
-  health: {fileID: 284149433113154659, guid: b1fc26e34c9e0434db8e4dd63bdc8da3, type: 3}
+  health: {fileID: 8037812779351109962, guid: aca90d125b3ce3e41986e5a20ee0ba1b, type: 3}
   navM: {fileID: 0}
 --- !u!1001 &4051653049022442793
 PrefabInstance:

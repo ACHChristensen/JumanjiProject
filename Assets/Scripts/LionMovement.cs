@@ -7,7 +7,7 @@ public class LionMovement : MonoBehaviour
 {
     private float moveSpeed; 
     public float distance;
-    public GameObject health;
+    private GameObject health;
     private HealthController healthController;
     private int count;
     private int countSpeed;
@@ -21,7 +21,7 @@ public class LionMovement : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         navM.transform.position = new Vector3(-40,-3,2);
         navM.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-  
+        health = GameObject.FindGameObjectWithTag("HP"); 
         healthController = health.GetComponent<HealthController>();
         count = 0;
         moveSpeed = 5f;
@@ -47,10 +47,9 @@ public class LionMovement : MonoBehaviour
         Vector3 deltaPosition = new Vector3(playerPosition.x - navM.transform.position.x, 0.0f, playerPosition.z - navM.transform.position.z);
         Quaternion rotation = Quaternion.LookRotation(deltaPosition);
         navM.transform.rotation = rotation;   
-        if (distance < 2f)
+        if (distance < 3f)
         { 
             count++;
-            
             if (count == 1 && healthController.GetHP() > 0)
             {
                 healthController.SetHP(healthController.GetHP() - 1);

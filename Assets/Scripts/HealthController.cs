@@ -13,29 +13,46 @@ public class HealthController : MonoBehaviour
     private int hpTemp;
     private List<Image> heartsToCount;
 
+    private static HealthController hpController = null;
+
+    void Awake()
+    {
+      
+        if (hpController == null)
+        {
+            hpController = this;
+        }else if (hpController != this)
+        {
+            Destroy(hpController);
+        }
+    
+    }
+
     void Start()
     {
         healthPoints = 10;
         gameStatusController = gameStatus.GetComponent<GameStatusUI>();
         hpTemp = healthPoints;
-        heartsToCount = new List<Image>();
+       /* heartsToCount = new List<Image>();
         foreach (Image heart in hearts)
         {
             heartsToCount.Add(heart);   
         }
+       */
     }
 
 
     void Update()
     {
+        
         if(healthPoints < hpTemp)
-        {  
+        {  Debug.Log(healthPoints);
             UpdateHealth();
             hpTemp = healthPoints;
         } 
         if (healthPoints == 0)
         {
-            gameStatusController.SetGameStatus("lost");
+            GameStatusUI.status = "lost";
         }
     }
 

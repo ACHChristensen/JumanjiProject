@@ -7,6 +7,7 @@ TagManager:
   - FieldTrack
   - Wooden
   - TrackSphere
+  - HP
   layers:
   - Default
   - TransparentFX
