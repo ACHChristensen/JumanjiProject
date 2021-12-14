@@ -46,7 +46,7 @@ public class HealthController : MonoBehaviour
         } 
         if (healthPoints == 0)
         {
-            gameStatusUI.SetGameStatus("lost");
+            gameStatusUI.SetWordStatus("lost");
         }
         lifeGained = playerAttachmentsHandler.GetLifeGained();
         if (lifeGained && healthPoints < 10)

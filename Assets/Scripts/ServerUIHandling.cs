@@ -11,7 +11,7 @@ public class ServerUIHandling : MonoBehaviour
     public Text distanceFromLion;
     private float lionDistance;
     private float startDistance;
-    [SerializeField] private GameObject player;
+    private GameObject player;
     private PlayerAttachmentsHandler playerItems;
     private Text amountCoints;
     [SerializeField] private GameObject cointCounter;
@@ -25,6 +25,7 @@ public class ServerUIHandling : MonoBehaviour
     [SerializeField] private GameObject startPoint;
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         distanceFromLion = lionUIHandler.GetComponentInChildren<Text>();
         playerItems = player.GetComponent<PlayerAttachmentsHandler>();
         amountCoints = cointCounter.GetComponent<Text>();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotateClubVariant3 : MonoBehaviour
 {
-    private float rotation = 30f;
+    private float rotation = 60f;
     private Vector3 around;
 
     private void Start()
