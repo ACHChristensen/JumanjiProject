@@ -12,6 +12,7 @@ TagManager:
   - GameStatus
   - Life
   - StartUI
+  - Club
   layers:
   - Default
   - TransparentFX
