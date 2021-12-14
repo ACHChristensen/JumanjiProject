@@ -11,6 +11,7 @@ public class GameStatusUI : MonoBehaviour
     private float timer = 0f;
     private float offsetTime = 5f;
     private int coins;
+    private GameObject player;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class GameStatusUI : MonoBehaviour
 
     private void Update()
     {
+        
         SetGameStatus(status);
     }
 
@@ -29,7 +31,7 @@ public class GameStatusUI : MonoBehaviour
         if(gameStatusWord.Equals("won") )
         {
             statusGame.GetComponent<Text>().color = Color.Lerp(Color.gray, Color.green, 0.5f); 
-                statusGame.GetComponent<Text>().text = "VICTORY with "+ coins +" !";
+                statusGame.GetComponent<Text>().text = "VICTORY - "+ coins +" points!";
             WaitBeforeReset();
         }
         else if(gameStatusWord.Equals("lost")) {
@@ -48,7 +50,9 @@ public class GameStatusUI : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
+            player = other.gameObject;
             status = "won";
+            coins = player.GetComponent<PlayerAttachmentsHandler>().getAmountOfCoint();
         }
     }
 
