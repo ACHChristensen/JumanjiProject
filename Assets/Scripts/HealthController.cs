@@ -8,11 +8,11 @@ public class HealthController : MonoBehaviour
     
     private int healthPoints;
     [SerializeField] private Image[] hearts;
-    [SerializeField] private Text gameStatus;
     private int hpTemp;
     private bool lifeGained;
     private PlayerAttachmentsHandler playerAttachmentsHandler;
     private static HealthController hpController = null;
+    private static GameStatusUI gameStatusUI;
 
     void Awake()
     {
@@ -32,6 +32,7 @@ public class HealthController : MonoBehaviour
         playerAttachmentsHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttachmentsHandler>();
         healthPoints = 10;
         hpTemp = healthPoints;
+        gameStatusUI = GameObject.FindGameObjectWithTag("GameStatus").GetComponent<GameStatusUI>();
     }
 
 
@@ -45,7 +46,7 @@ public class HealthController : MonoBehaviour
         } 
         if (healthPoints == 0)
         {
-            GameStatusUI.status = "lost";
+            gameStatusUI.SetGameStatus("lost");
         }
         lifeGained = playerAttachmentsHandler.GetLifeGained();
         if (lifeGained && healthPoints < 10)

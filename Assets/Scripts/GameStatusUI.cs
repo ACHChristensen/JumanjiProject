@@ -17,11 +17,6 @@ public class GameStatusUI : MonoBehaviour
     {
         statusGame = GameObject.FindGameObjectWithTag("GameStatus"); 
         status = "";
-    }
-
-    private void Update()
-    {
-        
         SetGameStatus(status);
     }
 
