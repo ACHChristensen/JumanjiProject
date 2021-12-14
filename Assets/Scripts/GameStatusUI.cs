@@ -43,10 +43,11 @@ public class GameStatusUI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.tag.Equals("Player"))
-        {
+        {   
             player = other.gameObject;
-            status = "won";
+            SetGameStatus("won");
             coins = player.GetComponent<PlayerAttachmentsHandler>().getAmountOfCoint();
         }
     }
