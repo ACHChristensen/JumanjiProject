@@ -8,16 +8,22 @@ public class GameStatusUI : MonoBehaviour
 {
     private GameObject statusGame;
     public static string status;
-    private float timer = 0f;
+    private float timer;
     private float offsetTime = 5f;
     private int coins;
     private GameObject player;
+
 
     void Start()
     {
         statusGame = GameObject.FindGameObjectWithTag("GameStatus"); 
         status = "";
-        SetGameStatus(status);
+        timer = 0f;
+    }
+
+    private void Update()
+    {
+       SetGameStatus(status);
     }
 
     public void SetGameStatus(string gameStatusWord)
@@ -47,15 +53,11 @@ public class GameStatusUI : MonoBehaviour
         if (other.tag.Equals("Player"))
         {   
             player = other.gameObject;
-            SetGameStatus("won");
             coins = player.GetComponent<PlayerAttachmentsHandler>().getAmountOfCoint();
+            status = "won";
         }
     }
 
-    public void ResetScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     private void WaitBeforeReset()
     {
@@ -63,12 +65,18 @@ public class GameStatusUI : MonoBehaviour
             if (timer > offsetTime)
             {
                 timer = 0f;
-            ResetScene();
-            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void SetCoins(int coins)
     {
         this.coins = coins;
+    }
+
+
+public void SetWordStatus(string statusWord)
+    {
+        status = statusWord;
     }
 }

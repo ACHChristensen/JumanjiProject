@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Animator animation;
     public CharacterController controller;
-    private float speed = 150f;
+    private float speed = 100f;
     public PlayerInput playerInput;
     private Vector3 moveInput;
     private float jump = 2f;
