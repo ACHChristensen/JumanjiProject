@@ -25,10 +25,8 @@ public class PlayerAttachmentsHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(message: "hej");
         if (other.gameObject.tag.Equals("Life")){
             lifeGained = true;
-            Debug.Log(message: "nu er den: " + lifeGained);
             life = other.gameObject;
             other.gameObject.SetActive(false);
             other.gameObject.GetComponent<PowerUpController>().Respawn(life);
